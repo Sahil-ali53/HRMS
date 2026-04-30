@@ -28,11 +28,11 @@ function App() {
           <Route 
             path='/' 
             element={
-              isAuthenticated ? <Navigate to="/dashboard" /> : <Login onLogin={handleLogin} />
+              isAuthenticated ? <Navigate to="/home" /> : <Login onLogin={handleLogin} />
             }
           />
           <Route 
-            path='/dashboard' 
+            path='/home' 
             element={
               isAuthenticated ? <SidePanle onLogout={handleLogout} /> : <Navigate to="/" />
             }

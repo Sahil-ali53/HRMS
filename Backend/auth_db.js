@@ -25,7 +25,7 @@ db.connect((err) => {
   console.log("MySQL Connected");
 });
 
-// ================= SIGNUP =================
+// SIGNUP 
 app.post("/signup", async (req, res) => {
   try {
     const { firstName, lastName, email, password } = req.body;
@@ -69,6 +69,7 @@ app.post("/signup", async (req, res) => {
 
           res.json({
             message: "Signup Successful",
+            alert: "Signup Successful",
           });
         }
       );
@@ -80,9 +81,9 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-// ================= SIGNIN =================
-app.post("/", (req, res) => {
-  try {signin
+//  SIGNIN 
+app.post("/signin", (req, res) => {
+  try {
     const { email, password } = req.body;
 
     const sql = "SELECT * FROM users WHERE email = ?";
@@ -124,7 +125,7 @@ app.post("/", (req, res) => {
   }
 });
 
-// ================= FORGOT PASSWORD =================
+//  FORGOT PASSWORD 
 app.post("/forgot-password", async (req, res) => {
   try {
     const { email, newPassword } = req.body;
@@ -165,7 +166,7 @@ app.post("/forgot-password", async (req, res) => {
   }
 });
 
-// ================= START SERVER =================
+//START SERVER 
 app.listen(5000, () => {
   console.log("Server running on port 5000");
 });

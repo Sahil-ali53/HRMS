@@ -21,13 +21,13 @@ export default function Signup({ onLogin }) {
     const [loading, setLoading] = useState(false);
 
 
-    const handle =  (e) => setForm({ ...form, [e.target.name]: e.target.value });
-   
+    const handle = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
         setLoading(true);
-        
+
         try {
             if (!isSignUp && !acceptedTerms) {
                 setError('Please accept the Terms and Conditions and Privacy Policy before signing up');
@@ -42,27 +42,28 @@ export default function Signup({ onLogin }) {
 
             if (isSignUp) {
                 // Sign In
-                const response = await axios.post("http://localhost:5000/", {
+                const response = await axios.post("http://localhost:5000/signin", {
                     email: form.email,
                     password: form.password
                 });
-                
+
                 if (response.data.message === "Login Success") {
                     onLogin();
-                    navigate('/dashboard');
+                    navigate('/SidePanle');
+                    alert("Login Successful");
                 }
             } else {
                 // Sign Up
                 await axios.post("http://localhost:5000/signup", form);
                 // Auto sign in after signup
-                const response = await axios.post("http://localhost:5000/", {
+                const response = await axios.post("http://localhost:5000/signin", {
                     email: form.email,
                     password: form.password
                 });
-                
+
                 if (response.data.message === "Login Success") {
                     onLogin();
-                    navigate('/dashboard');
+                    navigate('/SidePanle');
                 }
             }
         } catch (err) {
@@ -71,8 +72,8 @@ export default function Signup({ onLogin }) {
             setLoading(false);
         }
     };
-    
-    
+
+
     return (
         <div className="flex min-h-screen">
             {/* Left - Form */}
@@ -102,8 +103,8 @@ export default function Signup({ onLogin }) {
                                         type="text"
                                         name="firstName"
                                         placeholder="Enter your first name"
-                                        
-                                        onChange={handle} 
+
+                                        onChange={handle}
                                         required
                                         className="w-full px-4 py-2.5 border border-gray-300 rounded text-sm outline-none focus:border-blue-500 placeholder:text-gray-400"
                                     />
@@ -117,9 +118,9 @@ export default function Signup({ onLogin }) {
                                         type="text"
                                         name="lastName"
                                         placeholder="Enter your last name"
-                                        
+
                                         onChange={handle}
-                                         required
+                                        required
                                         className="w-full px-4 py-2.5 border border-gray-300 rounded text-sm outline-none focus:border-blue-500 placeholder:text-gray-400"
                                     />
                                 </div>
@@ -138,9 +139,9 @@ export default function Signup({ onLogin }) {
                                 type="email"
                                 name="email"
                                 placeholder="Enter your email"
-                                
+
                                 onChange={handle}
-                                 required
+                                required
                                 className="w-full px-4 py-2.5 border border-gray-300 rounded text-sm outline-none focus:border-blue-500 placeholder:text-gray-400"
                             />
                         </div>
@@ -155,7 +156,7 @@ export default function Signup({ onLogin }) {
                                 <input
                                     type={showPassword ? 'text' : 'password'}
                                     name="password" placeholder="Enter your password"
-                                    
+
                                     onChange={handle}
                                     required
                                     className="w-full px-4 py-2.5 border border-gray-300 rounded text-sm outline-none focus:border-blue-500 placeholder:text-gray-400 pr-10"
@@ -179,7 +180,7 @@ export default function Signup({ onLogin }) {
                                     <input
                                         type={showConfirm ? 'text' : 'password'} name="confirmPassword" placeholder="Confirm your password"
                                         value={form.confirmPassword} onChange={handle}
-                                         required
+                                        required
                                         className="w-full px-4 py-2.5 border border-gray-300 rounded text-sm outline-none focus:border-blue-500 placeholder:text-gray-400 pr-10"
                                     />
                                     <button type="button" onClick={() => setShowConfirm(!showConfirm)}
